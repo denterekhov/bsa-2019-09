@@ -1,5 +1,4 @@
 import { Router } from 'express';
-const sgMail = require('@sendgrid/mail');
 const crypto = require('crypto');
 
 import * as authService from '../services/auth.service';
@@ -7,7 +6,7 @@ import * as userService from '../services/user.service';
 import authenticationMiddleware from '../middlewares/authentication.middleware';
 import registrationMiddleware from '../middlewares/registration.middleware';
 import jwtMiddleware from '../middlewares/jwt.middleware';
-import { SENDGRID_API_KEY } from '../../config/email.config';
+import { sendMailPasswordReset } from '../../helpers/email.helper';
 
 const router = Router();
 
@@ -34,17 +33,7 @@ router
             const resetPasswordExpires = Date.now() + 3600000; // 1 hour
 
             userService.setResetPasswordTokenAndDate(user.id, resetPasswordToken, resetPasswordExpires).then(([user]) => {
-                sgMail.setApiKey(SENDGRID_API_KEY);
-                const msg = {
-                    to: user.email,
-                    from: 'support@thread-js.com',
-                    subject: 'Thread-js Password Reset',
-                    text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.
-                    Please click on the following link, or paste this into your browser to complete the process:
-                    http://localhost:3001/reset/${user.resetPasswordToken}
-                    If you did not request this, please ignore this email and your password will remain unchanged.`,
-                };
-                sgMail.send(msg);
+                sendMailPasswordReset(user.email, user.resetPasswordToken);
                 return res.json({body: `An e-mail has been sent to ${req.body.email} with further instructions.`});
             });
         })

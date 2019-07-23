@@ -22,7 +22,6 @@ export default (models) => {
     Post.belongsTo(User);
     Post.hasMany(PostReaction);
     Post.hasMany(Comment);
-    // Post.hasMany(CommentReaction);
 
     Comment.hasMany(CommentReaction);
     Comment.belongsTo(User);
@@ -33,5 +32,4 @@ export default (models) => {
 
     CommentReaction.belongsTo(Comment);
     CommentReaction.belongsTo(User);
-    // CommentReaction.belongsTo(Post);
 };
