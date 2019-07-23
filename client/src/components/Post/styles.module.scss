@@ -1,0 +1,23 @@
+:global(.ui.basic.label):local(.toolbarBtn) {
+    border: none
+}
+
+:global(i.up),
+:global(i.down) {
+    position: relative;
+
+    ul {
+        position: absolute;
+        top: 10px;
+        left: 15px;
+        font-size: 12px;
+        font-family: Arial;
+        color: #fff;
+        background-color: #555;
+        z-index: 3;
+
+        li {
+            padding: 3px 5px;
+        }
+    }
+}
