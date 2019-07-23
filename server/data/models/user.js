@@ -24,7 +24,7 @@ export default (orm, DataTypes) => {
         },
         resetPasswordExpires: {
             allowNull: true,
-            type: DataTypes.INTEGER,
+            type: DataTypes.BIGINT,
         },
         createdAt: DataTypes.DATE,
         updatedAt: DataTypes.DATE

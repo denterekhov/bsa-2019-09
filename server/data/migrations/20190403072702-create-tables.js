@@ -34,7 +34,7 @@ export default {
                 },
                 resetPasswordExpires: {
                     allowNull: true,
-                    type: Sequelize.INTEGER,
+                    type: Sequelize.BIGINT,
                 },
                 createdAt: Sequelize.DATE,
                 updatedAt: Sequelize.DATE
